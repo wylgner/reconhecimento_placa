@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cliente;
+use App\Veiculo;
 use \Illuminate\Support\Facades\Redirect;
 
 class ClienteController extends Controller
@@ -111,6 +112,7 @@ class ClienteController extends Controller
     public function destroy($id)
     {
          $cliente = Cliente::findOrFail($id);
+         
         $cliente->delete();
         \Session::flash('mensagem_sucesso', 'Cliente Excluido com Sucesso!');
         return Redirect::to('cliente');

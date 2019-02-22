@@ -76,8 +76,10 @@ class VeiculoController {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $veiculo = Cliente::findOrFail($id);
-        return view('veiculo.formVeiculo', ['veiculo' => $veiculo]);
+       
+        $veiculo = Veiculo::findOrFail($id);
+        $cliente = Cliente::pluck('nome', 'id');
+        return view('veiculo.formVeiculo', ['veiculo' => $veiculo, 'clientes' => $cliente]);
     }
 
     /**
@@ -89,10 +91,10 @@ class VeiculoController {
      */
     public function update(Request $request, $id) {
         $veiculo = Veiculo::findOrFail($id);
-        $validatedData = $request->validate($veiculo->rules, $cliente->mensagens);
+        $validatedData = $request->validate($veiculo->rules, $veiculo->mensagens);
         $insert = $veiculo->update($request->all());
         if ($insert) {
-            \Session::flash('mensagem_sucesso', 'Cliente Atualizado com Sucesso!');
+            \Session::flash('mensagem_sucesso', 'Veiculo Atualizado com Sucesso!');
             return Redirect::to('veiculo')->withErros($validatedData);
         } else {
             \Session::flash('mensagem_sucesso', 'Cadastro não Efetuado!');

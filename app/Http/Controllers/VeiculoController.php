@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Veiculo;
 use \Illuminate\Support\Facades\Redirect;
-
+use App\Cliente;
 
 /**
  * Description of VeiculoController
@@ -19,26 +19,24 @@ use \Illuminate\Support\Facades\Redirect;
  * @author wylgn
  */
 class VeiculoController {
-     public function index()
-    {
+
+    public function index() {
         $veiculo = Veiculo::get();
-        return view('veiculo.lista', ['veiculos' => $veiculo]);
-
+        $cliente = Cliente::get();
+        return view('veiculo.lista', ['veiculos' => $veiculo, 'clientes' => $cliente]);
     }
 
-      public function formCreate() {
-        return view('veiculo.formVeiculo');
+    public function formCreate() {
+        $cliente = Cliente::pluck('nome', 'id');
+        return view('veiculo.formVeiculo', ['clientes' => $cliente]);
     }
-
-
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -48,9 +46,8 @@ class VeiculoController {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-           $veiculo = new Veiculo();
+    public function store(Request $request) {
+        $veiculo = new Veiculo();
         $validatedData = $request->validate($veiculo->rules, $veiculo->mensagens);
         $insert = $veiculo->create($request->all());
         if ($insert) {
@@ -68,8 +65,7 @@ class VeiculoController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         
     }
 
@@ -79,11 +75,9 @@ class VeiculoController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-          $veiculo = Cliente::findOrFail($id);
-          return view('veiculo.formVeiculo', ['veiculo' => $veiculo]);
-
+    public function edit($id) {
+        $veiculo = Cliente::findOrFail($id);
+        return view('veiculo.formVeiculo', ['veiculo' => $veiculo]);
     }
 
     /**
@@ -93,8 +87,7 @@ class VeiculoController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $veiculo = Veiculo::findOrFail($id);
         $validatedData = $request->validate($veiculo->rules, $cliente->mensagens);
         $insert = $veiculo->update($request->all());
@@ -103,9 +96,8 @@ class VeiculoController {
             return Redirect::to('veiculo')->withErros($validatedData);
         } else {
             \Session::flash('mensagem_sucesso', 'Cadastro não Efetuado!');
-           return Redirect::to('veiculo')->withErros($validatedData);
+            return Redirect::to('veiculo')->withErros($validatedData);
         }
-
     }
 
     /**
@@ -114,12 +106,11 @@ class VeiculoController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-         $veiculo = Veiculo::findOrFail($id);
+    public function destroy($id) {
+        $veiculo = Veiculo::findOrFail($id);
         $veiculo->delete();
         \Session::flash('mensagem_sucesso', 'Veiculo Excluido com Sucesso!');
         return Redirect::to('veiculo');
-
     }
+
 }

@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>Categoria</th>
                 <th>CPF</th>
@@ -28,7 +29,8 @@
         <tbody>
             @foreach($clientes as $cliente)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row"></th>
+                 <td>{{ $cliente->id }}</td>
                 <td>{{ $cliente->nome }}</td>
                 <td>{{ $cliente->categoria }}</td>
                 <td>{{ $cliente->cpf }}</td>

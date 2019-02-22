@@ -24,6 +24,7 @@
             </tr>
         </thead>
         <tbody>
+           
             @foreach($veiculos as $veiculo)
             <tr>
                 <th scope="row">1</th>
@@ -32,7 +33,7 @@
                 <td>{{ $veiculo->placa }}</td>
                 <td>{{ $veiculo->ano }}</td>
                 <td>{{ $veiculo->cliente_id }}</td>
-                
+               
                 <td>
                     <a href="veiculo/{{ $veiculo->id }}/edit"class="btn btn-info">Editar</a>
                     {!! Form::open(['method' => 'DELETE', 'url' => 'veiculo/'.$veiculo->id, 'style' => 'display: inline;']) !!}

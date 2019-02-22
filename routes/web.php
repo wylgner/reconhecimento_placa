@@ -31,7 +31,7 @@ Route::delete('cliente/{cliente}', 'ClienteController@destroy')->name('updateCli
 
 Route::get('veiculo', 'VeiculoController@index')->name('veiculo');
 Route::get('reconhecimento_placa/veiculo', 'VeiculoController@index')->name('veiculo');
-Route::get('veiculo/formVeiculo', 'VeiculoController@formCreate')->name('createFormVeiculo');
+Route::get('veiculo/formveiculo', 'VeiculoController@formCreate')->name('createFormVeiculo');
 Route::get('veiculo/store', 'VeiculoController@store')->name('createVeiculo');
 Route::post('veiculo/store', 'VeiculoController@store')->name('createVeiculo');
 Route::get('veiculo/{veiculo}/edit', 'VeiculoController@edit')->name('editVeiculo');
